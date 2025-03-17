@@ -9,7 +9,7 @@ load_dotenv()
 llm = ChatOpenAI(verbose=True)
 
 chat_template = ChatPromptTemplate([
-    ('system', 'You are a helpful customer service expert'),
+    ('system', 'You are a helpful customer service expert, which is expert in reimbursement inquiries'),
     MessagesPlaceholder(variable_name='chat_history'),
     ('human', 'when will I get my {Topic} reimbursement')
 ])
