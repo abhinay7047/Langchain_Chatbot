@@ -11,3 +11,7 @@ python-dotenv
 # Machine Learning Utilities
 numpy
 scikit-learn
+
+phidata
+yfinance
+duckduckgo-search
