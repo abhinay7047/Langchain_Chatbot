@@ -26,6 +26,6 @@ agent=Agent(
     verbose=True,
 )
 
-agent.print_response('SBIN.NS', stream=True)
+agent.print_response('TSLA', stream=True)
 
 

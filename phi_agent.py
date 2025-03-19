@@ -22,6 +22,6 @@ agent=Agent(
     provider=Groq(id='llama3-8b-8192', verbose=True)
 )
 
-agent.print_response('HINDUNILVR.NS', stream=True)
+agent.print_response('ANGELONE.NS', stream=True)
 
 
