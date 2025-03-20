@@ -8,17 +8,50 @@ load_dotenv()
 model = ChatOpenAI(model='gpt-4o')
 
 # schema
-class Review(BaseModel):
-
-    key_themes: list[str] = Field(description="Write down all the key themes discussed in the review in a list")
-    summary: str = Field(description="A brief summary of the review")
-    sentiment: Literal["pos", "neg"] = Field(description="Return sentiment of the review either negative, positive or neutral")
-    pros: Optional[list[str]] = Field(default=None, description="Write down all the pros inside a list")
-    cons: Optional[list[str]] = Field(default=None, description="Write down all the cons inside a list")
-    name: Optional[str] = Field(default=None, description="Write the name of the reviewer")
+json_schema = {
+  "title": "Review",
+  "type": "object",
+  "properties": {
+    "key_themes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Write down all the key themes discussed in the review in a list"
+    },
+    "summary": {
+      "type": "string",
+      "description": "A brief summary of the review"
+    },
+    "sentiment": {
+      "type": "string",
+      "enum": ["pos", "neg"],
+      "description": "Return sentiment of the review either negative, positive or neutral"
+    },
+    "pros": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "string"
+      },
+      "description": "Write down all the pros inside a list"
+    },
+    "cons": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "string"
+      },
+      "description": "Write down all the cons inside a list"
+    },
+    "name": {
+      "type": ["string", "null"],
+      "description": "Write the name of the reviewer"
+    }
+  },
+  "required": ["key_themes", "summary", "sentiment"]
+}
     
 
-structured_model = model.with_structured_output(Review)
+structured_model = model.with_structured_output(json_schema)
 # this is a real review from amazon of iphone 16 pro max
 result = structured_model.invoke("""This is my 1st iPhone and I switched from samsung S20 FE. I’m writing this review/observations after the usage of 1 month.
 
